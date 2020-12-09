@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>New Genus</h1>
+
+                {# Creating the genus form for a new entry into the list #}
+
+                {{ form_start(genusForm) }}
+
+                    {{ form_widget(genusForm) }}
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+
+                {{ form_end(genusForm) }}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
