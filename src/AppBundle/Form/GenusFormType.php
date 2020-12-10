@@ -7,6 +7,7 @@ use AppBundle\Repository\SubFamilyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,8 +27,7 @@ class GenusFormType extends AbstractType
                 'query_builder' => function(SubFamilyRepository $repo){
                     return $repo->createAlphabeticalQueryBuilder();
                 }
-                ])
-
+            ])
             ->add('speciesCount')
             ->add('funFact')
             ->add('isPublished', ChoiceType::class, [
@@ -35,7 +35,11 @@ class GenusFormType extends AbstractType
                     'Yes' => true,
                     'No' => false,
                 ]])
-            ->add('firstDiscoveredAt')
+            ->add('firstDiscoveredAt', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
+                'html5' => false,
+            ])
             ;
     }
 
