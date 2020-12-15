@@ -12,27 +12,33 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="search-bar">
-            <form method="GET" action="" class="js-sea-search sea-search">
-                <input type="search" name="q" placeholder="Search Sea Creatures" autocomplete="off" class="search-input">
-            </form>
-        </div>
-        <header class="header">
-            <img class="logo-icon" src="{{ asset('images/aquanote-logo.png') }}">
-            <h1 class="logo">AquaNote</h1>
-            <ul class="navi">
-                <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
-                <li><a href="#">Login</a></li>
-            </ul>
-        </header>
+    <div class="search-bar">
+        <form method="GET" action="" class="js-sea-search sea-search">
+            <input type="search" name="q" placeholder="Search Sea Creatures" autocomplete="off" class="search-input">
+        </form>
+    </div>
+    <header class="header">
+        <img class="logo-icon" src="{{ asset('images/aquanote-logo.png') }}">
+        <h1 class="logo">AquaNote</h1>
+        <ul class="navi">
+            <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
 
-        <div class="main-content">
-           {#          setting the falsh message and can redirect to any page and it will always shows up.#}
+            {# to login and logout links are initiated #}
+            {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ path('security_logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ path('security_login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </header>
 
-            {% for msg in app.session.flashBag.get('Success') %}
-                <div class="alert-success">
-                    {{ msg }}
-                </div>
+    <div class="main-content">
+        {# setting the falsh message and can redirect to any page and it will always shows up. #}
+
+        {% for msg in app.session.flashBag.get('Success') %}
+            <div class="alert-success">
+                {{ msg }}
+            </div>
 
             {% endfor %}
             {% block body %}{% endblock %}

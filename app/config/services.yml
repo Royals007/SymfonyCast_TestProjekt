@@ -6,7 +6,7 @@ parameters:
 services:
     app.markdown_transformer:
         class: AppBundle\Service\MarkdownTransformer
-        arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
+        arguments: [ '@markdown.parser', '@doctrine_cache.providers.my_markdown_cache' ]
 
     app.markdown_extension:
         class: AppBundle\Twig\MarkdownExtension
@@ -14,3 +14,18 @@ services:
             - { name: twig.extension }
         #arguments: ['@app.markdown_transformer']
         autowire: true
+
+    app.security.login_form_authenticator:
+        class: AppBundle\Security\LoginFormAuthenticator
+        autowire: true
+
+
+    #registering the new service and set the class.
+    # Doctrine about our event subscriber, we will add a tag -- to tell the sys to use our services
+
+    app.doctrine.hash_password_listener:
+        class: AppBundle\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
